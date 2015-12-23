@@ -1,8 +1,8 @@
 //
 //  AppDelegate.swift
-//  CheckIniOS
+//  Receiver
 //
-//  Created by Dario Lencina on 12/21/15.
+//  Created by Dario Lencina on 12/22/15.
 //  Copyright © 2015 BlackFireApps. All rights reserved.
 //
 

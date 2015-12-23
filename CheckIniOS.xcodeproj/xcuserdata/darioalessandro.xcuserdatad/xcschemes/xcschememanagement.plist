@@ -4,10 +4,25 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Advertiser.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
+		</dict>
+		<key>Beacon.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>6</integer>
+		</dict>
 		<key>CheckIniOS.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
+		</dict>
+		<key>Receiver.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>5</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
@@ -18,6 +33,36 @@
 			<true/>
 		</dict>
 		<key>060291AB1C28F94200A95250</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>0618D7581C2A245800CFE4EB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>0618D76D1C2A245900CFE4EB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>0618D77E1C2A249800CFE4EB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>0618D7911C2A249800CFE4EB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>0618D7A21C2A24A100CFE4EB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>0618D7B51C2A24A100CFE4EB</key>
 		<dict>
 			<key>primary</key>
 			<true/>

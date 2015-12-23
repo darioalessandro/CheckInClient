@@ -1,15 +1,15 @@
 //
-//  CheckIniOSTests.swift
-//  CheckIniOSTests
+//  ReceiverTests.swift
+//  ReceiverTests
 //
-//  Created by Dario Lencina on 12/21/15.
+//  Created by Dario Lencina on 12/22/15.
 //  Copyright © 2015 BlackFireApps. All rights reserved.
 //
 
 import XCTest
-@testable import CheckIniOS
+@testable import Receiver
 
-class CheckIniOSTests: XCTestCase {
+class ReceiverTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
