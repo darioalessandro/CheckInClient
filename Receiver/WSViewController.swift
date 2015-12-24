@@ -26,9 +26,16 @@ class WebSocketConnection : ViewCtrlActor<StatusController>  {
     override func receive(msg: Actor.Message) {
         switch(msg) {
             case let m as BLECentral.DevicesObservationUpdate:
-                let devices : [String] = Array(m.devices.keys)
+                var payload : [[String : String]] = [[String : String]]()
+                m.devices.forEach { (identifier, observations) in
+                    let first : BLECentral.BLEPeripheralObservation = observations.first!
+                    let dict = ["RSSI":first.RSSI.description, "identifier":identifier]
+                    payload.append(dict)
+                }
+                
+                
                 do {
-                    let jsonData = try NSJSONSerialization.dataWithJSONObject(devices, options: NSJSONWritingOptions.PrettyPrinted)
+                    let jsonData = try NSJSONSerialization.dataWithJSONObject(payload, options: NSJSONWritingOptions.PrettyPrinted)
                     //TODO: support sending data
                     wsClient ! WebSocketClient.SendMessage(sender: self.this, message: String(data: jsonData, encoding: NSUTF8StringEncoding)!)
                 }catch let error as NSError{
