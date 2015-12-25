@@ -29,7 +29,7 @@ class WebSocketConnection : ViewCtrlActor<StatusController>  {
                 var payload : [[String : String]] = [[String : String]]()
                 m.devices.forEach { (identifier, observations) in
                     let first : BLECentral.BLEPeripheralObservation = observations.first!
-                    let dict = ["RSSI":first.RSSI.description, "identifier":identifier]
+                    let dict = ["RSSI":first.RSSI.description, "identifier":identifier, "timeIntervalSince1970" : first.timestamp.timeIntervalSince1970.description]
                     payload.append(dict)
                 }
                 
