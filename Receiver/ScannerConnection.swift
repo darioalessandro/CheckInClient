@@ -37,7 +37,7 @@ public class ScannerConnection : ViewCtrlActor<StatusController>, WithListeners 
             switch(msg) {
                 
             case let m as BLECentral.StateChanged:
-                print("state \(m.state)")
+                print("state changed")
                 
             case let m as BLECentral.StartScanning:
                 self.central ! BLECentral.StartScanning(services: m.services, sender: self.this)

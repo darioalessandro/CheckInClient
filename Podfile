@@ -6,6 +6,11 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
 use_frameworks!
 
+def crashlytics
+    pod 'Fabric'
+    pod 'Crashlytics'
+end
+
 def theater
     pod 'Theater' , :git => "https://github.com/darioalessandro/Theater.git"
 end
@@ -17,9 +22,11 @@ end
 
 target 'Beacon' do
     theater
+    crashlytics
 end
 
 target 'Receiver' do
     theater
+    crashlytics
 end
 
