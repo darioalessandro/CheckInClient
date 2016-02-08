@@ -15,6 +15,10 @@ def theater
     pod 'Theater' , :git => "https://github.com/darioalessandro/Theater.git"
 end
 
+def oauthclient
+    pod 'OAuthClient' , :git => "https://github.com/darioalessandro/OAuthClientiOS.git"
+end
+
 def testing_pods
     pod 'Quick', '~> 0.8.0'
     pod 'Nimble', '3.0.0'
@@ -28,5 +32,6 @@ end
 target 'Receiver' do
     theater
     crashlytics
+    oauthclient
 end
 
