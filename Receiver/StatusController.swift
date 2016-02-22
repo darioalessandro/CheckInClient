@@ -58,7 +58,7 @@ public class StatusController : UITableViewController {
         let receiverId = UIDevice.currentDevice().identifierForVendor!.UUIDString
         rows = connectedRows()
 
-        WSConnection ! WebSocketClient.Connect(url: NSURL(string: C.backendURL)!, headers: ["receiverId":receiverId, "username":"dario"], sender: nil)
+        WSConnection ! WebSocketClient.Connect(url: NSURL(string: C.backendURL)!, headers: ["receiverId":receiverId, "username":cachedLoginData!.username], sender: nil)
         BLEConnection ! BLECentral.StartScanning(services: [C.BLE.svc], sender: WSConnection)
 
     }
