@@ -22,5 +22,3 @@ struct C {
         static let characteristic = CBUUID(string: "71DA3FD1-7E10-41C1-B16F-4430B506CDE2")
     }
 }
-
-//scp -i ~/.ssh/blackfireapps.pem checkin-1.0-SNAPSHOT.zip  ubuntu@darioalessandro.com:~/apps

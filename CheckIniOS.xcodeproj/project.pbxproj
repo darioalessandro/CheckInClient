@@ -17,8 +17,8 @@
 		0618D7AD1C2A24A100CFE4EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0618D7AC1C2A24A100CFE4EB /* Assets.xcassets */; };
 		0618D7B01C2A24A100CFE4EB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0618D7AE1C2A24A100CFE4EB /* LaunchScreen.storyboard */; };
 		0618D7BB1C2A24A100CFE4EB /* BeaconTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0618D7BA1C2A24A100CFE4EB /* BeaconTests.swift */; };
-		0618D7C41C2A26C700CFE4EB /* WSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0618D7C31C2A26C700CFE4EB /* WSViewController.swift */; };
-		0618D7C61C2A26F500CFE4EB /* ScannerConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0618D7C51C2A26F500CFE4EB /* ScannerConnection.swift */; };
+		0618D7C41C2A26C700CFE4EB /* WebSocketConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0618D7C31C2A26C700CFE4EB /* WebSocketConnection.swift */; };
+		0618D7C61C2A26F500CFE4EB /* BLEScannerConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0618D7C51C2A26F500CFE4EB /* BLEScannerConnection.swift */; };
 		0618D7CA1C2A326F00CFE4EB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0618D7C91C2A326F00CFE4EB /* Constants.swift */; };
 		0618D7CB1C2A35DB00CFE4EB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0618D7C91C2A326F00CFE4EB /* Constants.swift */; };
 		0618D7CE1C2A3D0000CFE4EB /* StatusController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0618D7CD1C2A3D0000CFE4EB /* StatusController.swift */; };
@@ -65,8 +65,8 @@
 		0618D7B61C2A24A100CFE4EB /* BeaconTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BeaconTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0618D7BA1C2A24A100CFE4EB /* BeaconTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeaconTests.swift; sourceTree = "<group>"; };
 		0618D7BC1C2A24A100CFE4EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0618D7C31C2A26C700CFE4EB /* WSViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSViewController.swift; sourceTree = "<group>"; };
-		0618D7C51C2A26F500CFE4EB /* ScannerConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScannerConnection.swift; sourceTree = "<group>"; };
+		0618D7C31C2A26C700CFE4EB /* WebSocketConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebSocketConnection.swift; sourceTree = "<group>"; };
+		0618D7C51C2A26F500CFE4EB /* BLEScannerConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BLEScannerConnection.swift; sourceTree = "<group>"; };
 		0618D7C71C2A270F00CFE4EB /* PeripheralActors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeripheralActors.swift; sourceTree = "<group>"; };
 		0618D7C91C2A326F00CFE4EB /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = Receiver/Constants.swift; sourceTree = "<group>"; };
 		0618D7CD1C2A3D0000CFE4EB /* StatusController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusController.swift; sourceTree = "<group>"; };
@@ -146,8 +146,8 @@
 			isa = PBXGroup;
 			children = (
 				0618D7CD1C2A3D0000CFE4EB /* StatusController.swift */,
-				0618D7C51C2A26F500CFE4EB /* ScannerConnection.swift */,
-				0618D7C31C2A26C700CFE4EB /* WSViewController.swift */,
+				0618D7C51C2A26F500CFE4EB /* BLEScannerConnection.swift */,
+				0618D7C31C2A26C700CFE4EB /* WebSocketConnection.swift */,
 				0618D7811C2A249800CFE4EB /* AppDelegate.swift */,
 				0618D7851C2A249800CFE4EB /* Main.storyboard */,
 				0618D7881C2A249800CFE4EB /* Assets.xcassets */,
@@ -512,8 +512,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0618D7C41C2A26C700CFE4EB /* WSViewController.swift in Sources */,
-				0618D7C61C2A26F500CFE4EB /* ScannerConnection.swift in Sources */,
+				0618D7C41C2A26C700CFE4EB /* WebSocketConnection.swift in Sources */,
+				0618D7C61C2A26F500CFE4EB /* BLEScannerConnection.swift in Sources */,
 				0618D7821C2A249800CFE4EB /* AppDelegate.swift in Sources */,
 				0618D7D01C2A491500CFE4EB /* Device.swift in Sources */,
 				0618D7CE1C2A3D0000CFE4EB /* StatusController.swift in Sources */,

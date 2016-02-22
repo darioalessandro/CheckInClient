@@ -36,7 +36,7 @@ public class ScannerConnection : ViewCtrlActor<StatusController>, WithListeners 
         return {[unowned self](msg : Actor.Message) in
             switch(msg) {
                 
-            case let m as BLECentral.StateChanged:
+            case is BLECentral.StateChanged:
                 print("state changed")
                 
             case let m as BLECentral.StartScanning:

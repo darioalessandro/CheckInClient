@@ -16,7 +16,9 @@ def theater
 end
 
 def oauthclient
-    pod 'OAuthClient' , :git => "https://github.com/darioalessandro/OAuthClientiOS.git" :branch => 'master'
+    pod 'OAuthClient' , :git => "https://github.com/darioalessandro/OAuthClientiOS.git", :branch => 'master'
+    #    pod 'AFNetworking', :git => 'https://github.com/gowalla/AFNetworking.git', :branch => 'dev'
+
 end
 
 def testing_pods
