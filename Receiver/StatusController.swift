@@ -27,7 +27,7 @@ public class StatusController : UITableViewController {
         BLEConnection ! SetViewCtrl(ctrl: self)
         let receiverId = UIDevice.currentDevice().identifierForVendor!.UUIDString
         
-        WSConnection ! WebSocketClient.Connect(url: NSURL(string: C.backendURL)!, headers: ["receiverId":receiverId], sender: nil)
+        WSConnection ! WebSocketClient.Connect(url: NSURL(string: C.backendURL)!, headers: ["receiverId":receiverId, "username":"dario"], sender: nil)
         BLEConnection ! BLECentral.StartScanning(services: [C.BLE.svc], sender: WSConnection)
 
         bluetoothRow = self.tableView.dequeueReusableCellWithIdentifier("Bluetooth")
