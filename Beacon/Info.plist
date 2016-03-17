@@ -2,6 +2,29 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
+	<key>OAuthConfig</key>
+	<dict>
+		<key>client_id</key>
+		<string>1</string>
+		<key>scope</key>
+		<string>any</string>
+		<key>url</key>
+		<string>http://192.168.1.72:9001/nativeIndex</string>
+	</dict>
+	<key>OAuthConfigDev</key>
+	<dict>
+		<key>client_id</key>
+		<string>1</string>
+		<key>scope</key>
+		<string>any</string>
+		<key>url</key>
+		<string>http://darioalessandro.com:9005/nativeIndex</string>
+	</dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>

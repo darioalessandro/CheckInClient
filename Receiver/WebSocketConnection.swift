@@ -8,6 +8,7 @@
 
 import UIKit
 import Theater
+import CoreBluetooth
 
 class WebSocketConnection : ViewCtrlActor<StatusController>  {
     
@@ -26,17 +27,25 @@ class WebSocketConnection : ViewCtrlActor<StatusController>  {
     override func receive(msg: Actor.Message) {
         switch(msg) {
             case let m as BLECentral.DevicesObservationUpdate:
+                
                 var payload : [[String : String]] = [[String : String]]()
                 m.devices.forEach { (identifier, observations) in
                     let first : BLECentral.BLEPeripheralObservation = observations.first!
+                    
+                    if let services = (first.advertisementData[CBAdvertisementDataServiceUUIDsKey] as? NSArray),
+                    let serviceUUID = services[0].UUIDString{
+                    
+                    
                     var dict = ["RSSI":first.RSSI.description, "identifier":identifier,
-                        "timeIntervalSince1970" : first.timestamp.timeIntervalSince1970.description]
+                        "timeIntervalSince1970" : first.timestamp.timeIntervalSince1970.description,
+                        "serviceUUID" : serviceUUID]
                     
                     if let name = first.peripheral.name {
                         dict["name"] = name
                     }
                     
-                    payload.append(dict)
+                        payload.append(dict)
+                    }
                 }
                 
                 
@@ -47,6 +56,7 @@ class WebSocketConnection : ViewCtrlActor<StatusController>  {
                 }catch let error as NSError{
                     print(error.description)
                 }
+            
             default:
                 print("not handled")
         }

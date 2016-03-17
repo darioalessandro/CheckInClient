@@ -10,6 +10,30 @@ import UIKit
 import Theater
 import OAuthClient
 
+public class OAuthLoginDataCache : NSObject {
+    
+    private let username = "username"
+    private let cookie = "cookie"
+    
+    func loginData() -> OAuthLoginData? {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        
+        if let name = defaults.stringForKey(username),
+        let cookie = defaults.stringForKey(cookie) {
+            return OAuthLoginData(username: name, cookie: cookie)
+        } else {
+            return nil
+        }
+    }
+    
+    func setLoginData(loginData : OAuthLoginData) {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        defaults.setObject(loginData.username, forKey: username)
+        defaults.setObject(loginData.cookie, forKey: cookie)
+        defaults.synchronize()
+    }
+}
+
 public class StatusController : UITableViewController {
     
     var rows : [[UITableViewCell]] = [[UITableViewCell]]()
@@ -23,6 +47,17 @@ public class StatusController : UITableViewController {
         self.system.actorOf(WebSocketConnection.self, name : "WebSocketConnection")
     lazy var BLEConnection : ActorRef =
         self.system.actorOf(ScannerConnection.self, name : "ScannerConnection")
+    
+    override public func prepareForSegue( segue: UIStoryboardSegue,
+         sender: AnyObject?) {
+        if segue.identifier == "addBeacon" {
+            if let navCtrl = segue.destinationViewController as? UINavigationController,
+                let ctrl = navCtrl.viewControllers.first as? AddBeaconController
+            {
+                ctrl.system = system
+            }
+        }
+    }
     
     func showError(error : NSError, onClick : Void -> Void) {
         let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .Alert)
@@ -40,6 +75,7 @@ public class StatusController : UITableViewController {
                 self.showError(err, onClick: {self.login()})
             } else {
                 self.cachedLoginData = loginData
+                OAuthLoginDataCache().setLoginData(loginData!)
                 self.setUser(loginData!.username)
                 self.connectToBackendAndStartScanning()
             }
@@ -59,13 +95,13 @@ public class StatusController : UITableViewController {
         rows = connectedRows()
 
         WSConnection ! WebSocketClient.Connect(url: NSURL(string: C.backendURL)!, headers: ["receiverId":receiverId, "username":cachedLoginData!.username], sender: nil)
-        BLEConnection ! BLECentral.StartScanning(services: [C.BLE.svc], sender: WSConnection)
+        BLEConnection ! BLECentral.StartScanning(services: [], sender: WSConnection)
 
     }
     
     override public func viewDidLoad() {
         super.viewDidLoad()
-        login()
+        
         bluetoothRow = self.tableView.dequeueReusableCellWithIdentifier("Bluetooth")
         webSocketRow = self.tableView.dequeueReusableCellWithIdentifier("WebSocket")
         connectedAs = self.tableView.dequeueReusableCellWithIdentifier("ConnectedAs")
@@ -74,6 +110,14 @@ public class StatusController : UITableViewController {
         setUser("-")
         WSConnection ! SetViewCtrl(ctrl: self)
         BLEConnection ! SetViewCtrl(ctrl: self)
+        
+        if let loginData = OAuthLoginDataCache().loginData() {
+            self.cachedLoginData = loginData
+            self.setUser(loginData.username)
+            self.connectToBackendAndStartScanning()
+        } else {
+            login()
+        }
     }
     
     public func setBluetoothStatus(status : String) {

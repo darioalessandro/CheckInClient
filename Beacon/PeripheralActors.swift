@@ -13,18 +13,36 @@ import CoreBluetooth
 
 
 public extension PeripheralActor {
-    
     public class OnClick : Actor.Message {}
     
     public class ToggleAdvertising : Actor.Message {}
     
+    func CBStateToString(state : CBPeripheralManagerState) -> String {
+        switch(state) {
+        case .Unknown:
+            return "Unknown"
+        case .Resetting:
+            return "Resetting"
+        case .Unsupported:
+            return "Unsupported"
+        case .Unauthorized:
+            return "Unauthorized"
+        case .PoweredOff:
+            return "PoweredOff"
+        case .PoweredOn:
+            return "PoweredOn"
+        }
+    }
 }
 
 public class PeripheralActor : ViewCtrlActor<PeripheralViewController>, WithListeners {
     
     public var listeners : [ActorRef] = []
     
-    var onClickCharacteristic = CBMutableCharacteristic(type:  BLEData().characteristic, properties: [.Read , .Notify], value: nil, permissions: [.Readable])
+    var onClickCharacteristic = CBMutableCharacteristic(type:  BLEData().characteristic,
+                                properties: [.Read , .Notify, .Write],
+                                value: nil,
+                                permissions: [.Readable, .WriteEncryptionRequired])
     
     struct States {
         let connected = "connected"
@@ -33,32 +51,17 @@ public class PeripheralActor : ViewCtrlActor<PeripheralViewController>, WithList
     
     private let states : States = States()
     
-    let advertisementData : [String : AnyObject] = [CBAdvertisementDataIsConnectable : true,
-                                                    CBAdvertisementDataLocalNameKey : "TheaterDemo",
-                                                    CBAdvertisementDataServiceUUIDsKey : [BLEData().svc]]
+    func advertisementData(advertisementId: CBUUID?) -> [String : AnyObject] {
+        return [CBAdvertisementDataIsConnectable : true,
+                 CBAdvertisementDataLocalNameKey : "Beacon",
+              CBAdvertisementDataServiceUUIDsKey : [BeaconSettings().UUID()]]
+    }
     
     lazy var peripheral : ActorRef = self.actorOf(BLEPeripheral.self, name: "BLEPeripheral")
     
     required public init(context: ActorSystem, ref: ActorRef) {
         super.init(context: context, ref: ref)
     }
-    
-    func CBStateToString(state : CBPeripheralManagerState) -> String {
-        switch(state) {
-            case .Unknown:
-                return "Unknown"
-            case .Resetting:
-                return "Resetting"
-            case .Unsupported:
-                return "Unsupported"
-            case .Unauthorized:
-                return "Unauthorized"
-            case .PoweredOff:
-                return "PoweredOff"
-            case .PoweredOn:
-                return "PoweredOn"
-            }
-        }
     
     override public func receiveWithCtrl(ctrl : PeripheralViewController) -> Receive {
         return {[unowned self] (msg : Actor.Message) in
@@ -67,10 +70,10 @@ public class PeripheralActor : ViewCtrlActor<PeripheralViewController>, WithList
                     ^{ctrl.navigationItem.prompt = "\(self.CBStateToString(m.state))"}
                 
                 case is ToggleAdvertising:
-                    let svc = CBMutableService(type: BLEData().svc, primary: true)
+                    let svc = CBMutableService(type: BeaconSettings().UUID(), primary: true)
                     svc.characteristics = [self.onClickCharacteristic]
-                    
-                    self.peripheral ! BLEPeripheral.StartAdvertising(sender:self.this, advertisementData:self.advertisementData, svcs:[svc])
+                    let advettisementData = self.advertisementData(nil)
+                    self.peripheral ! BLEPeripheral.StartAdvertising(sender:self.this, advertisementData:advettisementData, svcs:[svc])
                     self.addListener(msg.sender)
                 
                 case is BLEPeripheral.DidStartAdvertising:
@@ -119,6 +122,16 @@ public class PeripheralActor : ViewCtrlActor<PeripheralViewController>, WithList
                     if let data = NSDate.init().debugDescription.dataUsingEncoding(NSUTF8StringEncoding) {
                         self.peripheral ! BLEPeripheral.UpdateCharacteristicValue(sender: self.this, char: self.onClickCharacteristic, centrals: [central], value: data)
                     }
+                
+                case let m as BLEPeripheral.DidReceiveWriteRequests:
+                    m.requests.forEach({ (body ) in
+                        if(body.characteristic.UUID == C.BLE.characteristic) {
+                            if let value = body.value {
+                                BeaconSettings().setUUID(CBUUID(data: value))
+                            }
+                        }
+                        self.peripheral ! BLEPeripheral.RespondToRequest(sender: self.this, request: body, result: .Success)
+                    })
         
                 case let m as BLEPeripheral.DidReceiveReadRequest:
                     m.request.value = self.onClickCharacteristic.value

@@ -23,13 +23,17 @@ public class PeripheralViewController : UITableViewController {
     
     lazy var peripheral : ActorRef = self.system.actorOf(PeripheralActor.self, name: "PeripheralActor")
     
+    public override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+    
     public override func viewWillAppear(animated: Bool) {
         peripheral ! SetViewCtrl(ctrl : self)
         self.title = "Beacon"
     }
     
     public override func viewWillDisappear(animated: Bool) {
-        if(self.isBeingDismissed() || self.isMovingFromParentViewController()){
+        if self.isBeingDismissed() || self.isMovingFromParentViewController() {
             self.system.stop()
         }
     }
@@ -41,4 +45,5 @@ public class PeripheralViewController : UITableViewController {
     @IBAction func onClick(sender: UIButton) {
         peripheral ! PeripheralActor.OnClick(sender : nil)
     }
+    
 }

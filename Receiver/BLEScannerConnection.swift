@@ -54,10 +54,11 @@ public class ScannerConnection : ViewCtrlActor<StatusController>, WithListeners 
                 
             case let observation as BLECentral.DevicesObservationUpdate:
                 self.devices = observation.devices
+
                 self.identifiers = Array(self.devices.keys)
                 self.broadcast(observation)
+                
                 //TODO: show this on the UI
-                //TODO: send devices to backend
                 
             default:
                 self.receive(msg)

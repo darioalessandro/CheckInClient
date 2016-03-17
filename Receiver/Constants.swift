@@ -15,7 +15,7 @@ public struct BLEData {
 }
 
 struct C {
-    static let backendURL = "http://192.168.1.73:9001/receiverSocket"
+    static let backendURL = "http://192.168.1.72:9001/receiverSocket"
 //        static let backendURL = "http://darioalessandro.com:9005/receiverSocket"
     struct BLE {
         static let svc = CBUUID(string: "71DA3FD1-7E10-41C1-B16F-4430B506CDE7")
